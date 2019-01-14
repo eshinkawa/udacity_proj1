@@ -17,30 +17,26 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-//    List<Result> movieList;
-//    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-//    RecyclerAdapter recyclerAdapter;
+    List<Result> movieList;
+    RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        movieList = new ArrayList<>();
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerAdapter = new RecyclerAdapter(getApplicationContext(),movieList);
-//        recyclerView.setAdapter(recyclerAdapter);
-
-
+        movieList = new ArrayList<>();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<Model> call = apiService.getMovies("7fc62a4d4f38231fa1b3a4cdf0e2a4c6");
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-//                Log.d("MainActivity", "posts loaded from API");
-//                recyclerAdapter.setMovieList(response.body().getResults());
+                Log.d("MainActivity", "posts loaded from API");
 
                 if(response.isSuccessful()) {
-//                recyclerAdapter.setMovieList(response.body().getResults());
+                    movieList = response.body().getResults();
+                    recyclerAdapter = new RecyclerAdapter(getApplicationContext(), movieList);
+                    recyclerView.setAdapter(recyclerAdapter);
+
                 } else {
                     System.out.println(response.errorBody());
                 }
@@ -56,5 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
