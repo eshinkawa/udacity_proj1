@@ -2,16 +2,21 @@ package project1.udacity.eduardoshinkawa.myapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyviewHolder> {
 
@@ -35,10 +40,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAdapter.MyviewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerAdapter.MyviewHolder holder, final int position) {
         holder.title.setText(movieList.get(position).getTitle());
         holder.overView.setText(movieList.get(position).getOverview());
         Picasso.get().load("http://image.tmdb.org/t/p/w185/" + movieList.get(position).getPosterPath()).into(holder.poster_path);
+
+        holder.vote_average.setRating(movieList.get(position).getVoteAverage().floatValue() / 2);
+
+        holder.recyclerItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//               Toast.makeText(context, "posicao "+movieList.get(position).getPosterPath() ,Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -53,8 +68,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     public class MyviewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView poster_path;
-        RatingBar voteAverage;
+        RatingBar vote_average;
         TextView overView;
+        LinearLayout recyclerItem;
 
 
         public MyviewHolder(View itemView) {
@@ -62,6 +78,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
             title = itemView.findViewById(R.id.title);
             poster_path = itemView.findViewById(R.id.imageView);
             overView = itemView.findViewById(R.id.overView);
+            recyclerItem = itemView.findViewById(R.id.recyclerItem);
+            vote_average = itemView.findViewById(R.id.rating);
         }
     }
 }
