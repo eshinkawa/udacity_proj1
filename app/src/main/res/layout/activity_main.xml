@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#050303"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     tools:context=".MainActivity">
@@ -15,8 +15,12 @@
         android:fontFamily="@font/ubuntubold"
         android:textSize="28sp"
         android:text="Most popular"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:paddingVertical="20dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -24,4 +28,16 @@
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="top|end"
+            android:scaleType="center"
+            android:src="@drawable/ic_launcher_background"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_behavior="com.dev2qa.example.material_design.floatingactionbutton.FloatingActionButtonScrollBehavior" />
+    </FrameLayout>
 </LinearLayout>
