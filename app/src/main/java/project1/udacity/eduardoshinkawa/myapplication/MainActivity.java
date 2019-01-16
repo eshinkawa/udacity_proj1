@@ -1,11 +1,9 @@
 package project1.udacity.eduardoshinkawa.myapplication;
-
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Result> movieList;
+    List<Movie> movieList;
     RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
 
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(layoutManager);
     }

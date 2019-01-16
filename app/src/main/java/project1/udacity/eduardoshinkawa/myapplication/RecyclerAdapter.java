@@ -6,21 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyviewHolder> {
 
     Context context;
-    List<Result> movieList;
+    List<Movie> movieList;
 
-    public RecyclerAdapter(Context context, List<Result> movieList) {
+    public RecyclerAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
 
-    public void setMovieList(List<Result> movieList) {
+    public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
@@ -33,9 +36,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
 
     @Override
     public void onBindViewHolder(RecyclerAdapter.MyviewHolder holder, int position) {
-        holder.tvMovieName.setText(movieList.get(position).getTitle());
-
-//        Glide.with(context).load(movieList.get(position).getImageUrl()).apply(RequestOptions.centerCropTransform()).into(holder.image);
+        holder.title.setText(movieList.get(position).getTitle());
+        holder.overView.setText(movieList.get(position).getOverview());
+        Picasso.get().load("http://image.tmdb.org/t/p/w185/" + movieList.get(position).getPosterPath()).into(holder.poster_path);
     }
 
     @Override
@@ -48,13 +51,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     }
 
     public class MyviewHolder extends RecyclerView.ViewHolder {
-        TextView tvMovieName;
-        ImageView image;
+        TextView title;
+        ImageView poster_path;
+        RatingBar voteAverage;
+        TextView overView;
+
 
         public MyviewHolder(View itemView) {
             super(itemView);
-            tvMovieName = (TextView)itemView.findViewById(R.id.title);
-//            image = (ImageView)itemView.findViewById(R.id.image);
+            title = itemView.findViewById(R.id.title);
+            poster_path = itemView.findViewById(R.id.imageView);
+            overView = itemView.findViewById(R.id.overView);
         }
     }
 }

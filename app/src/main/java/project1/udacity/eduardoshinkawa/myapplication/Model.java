@@ -17,7 +17,7 @@ public class Model {
     private Integer totalPages;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<Movie> results = null;
 
     public Integer getPage() {
         return page;
@@ -43,11 +43,11 @@ public class Model {
         this.totalPages = totalPages;
     }
 
-    public List<Result> getResults() {
+    public List<Movie> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<Movie> results) {
         this.results = results;
     }
 
