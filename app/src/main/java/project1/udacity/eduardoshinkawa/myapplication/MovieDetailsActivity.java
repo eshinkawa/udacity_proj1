@@ -23,19 +23,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
         Bundle data = getIntent().getExtras();
-        MovieParcelable movie = data.getParcelable("movie");
+        Movie movie = data.getParcelable("movie");
 
-//        TextView title = findViewById(R.id.title);
-//        title.setText(movie.getOriginalTitle());
+        TextView title = findViewById(R.id.title);
+        title.setText(movie.getOriginalTitle());
 
-        Log.d(TAG, "massa: "+ movie.getPosterPath());
-//        Log.d(TAG, "moviereleasedate: "+ movie.getReleaseDate());
-//        Log.d(TAG, "movieoverview: "+ movie.getOverview());
-//        Log.d(TAG, "movievote: "+ movie.getVoteAverage());
-//        Log.d(TAG, "movievote: "+ movie.getOriginalTitle());
+        TextView overview = findViewById(R.id.overview);
+        overview.setText(movie.getOverview());
+
+        Log.d(TAG, "movieposterpatch: "+ movie.getPosterPath());
+        Log.d(TAG, "moviereleasedate: "+ movie.getReleaseDate());
+        Log.d(TAG, "movieoverview: "+ movie.getOverview());
+        Log.d(TAG, "movievote: "+ movie.getVoteAverage());
+        Log.d(TAG, "movieoriginaltitle: "+ movie.getOriginalTitle());
 
         ImageView bgImage = findViewById(R.id.bgImage);
-        Picasso.get().load("http://image.tmdb.org/t/p/w342//5Kg76ldv7VxeX9YlcQXiowHgdX6.jpg").into(bgImage);
-//
+        Picasso.get().load("http://image.tmdb.org/t/p/w342/"+movie.getPosterPath()).into(bgImage);
+
     }
 }

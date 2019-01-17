@@ -2,6 +2,7 @@ package project1.udacity.eduardoshinkawa.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,15 +60,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
                 Log.d(TAG, "movievote: "+ movieList.get(position).getVoteAverage());
                 Log.d(TAG, "movievote: "+ movieList.get(position).getOriginalTitle());
 
-                MovieParcelable mMovie = new MovieParcelable(
-                        movieList.get(position).getPosterPath(),
-                        movieList.get(position).getPosterPath(),
-                        movieList.get(position).getVoteAverage(),
-                        movieList.get(position).getPosterPath(),
-                        movieList.get(position).getPosterPath()
-                );
+                Movie mMovie = new Movie();
 
-                intent.putExtra("movie", mMovie);
+                mMovie.setPosterPath(movieList.get(position).getPosterPath());
+                mMovie.setOverview(movieList.get(position).getOverview());
+                mMovie.setOriginalTitle(movieList.get(position).getOriginalTitle());
+                mMovie.setReleaseDate(movieList.get(position).getReleaseDate());
+                mMovie.setVoteAverage(movieList.get(position).getVoteAverage());
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("movie", mMovie);
+
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
