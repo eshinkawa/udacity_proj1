@@ -6,5 +6,8 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET("3/movie/popular")
-    Call<Model> getMovies(@Query("api_key") String key);
+    Call<Model> getMoviesPopularity(@Query("api_key") String key);
+
+    @GET("3/movie/top_rated")
+    Call<Model> getMoviesRating(@Query("api_key") String key);
 }

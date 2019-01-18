@@ -28,6 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     public RecyclerAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
+        notifyDataSetChanged();
     }
 
     public void setMovieList(List<Movie> movieList) {
@@ -52,13 +53,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-
-
-                Log.d(TAG, "movieposterpath: "+ movieList.get(position).getPosterPath());
-                Log.d(TAG, "moviereleasedate: "+ movieList.get(position).getReleaseDate());
-                Log.d(TAG, "movieoverview: "+ movieList.get(position).getOverview());
-                Log.d(TAG, "movievote: "+ movieList.get(position).getVoteAverage());
-                Log.d(TAG, "movievote: "+ movieList.get(position).getOriginalTitle());
 
                 Movie mMovie = new Movie();
 
