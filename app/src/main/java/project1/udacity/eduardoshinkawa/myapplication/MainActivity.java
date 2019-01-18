@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
     List<Movie> movieList;
     RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
+    String key = "7fc62a4d4f38231fa1b3a4cdf0e2a4c6";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         movieList = new ArrayList<>();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<Model> call = apiService.getMoviesRating("7fc62a4d4f38231fa1b3a4cdf0e2a4c6");
+        Call<Model> call = apiService.getMoviesPopularity(key);
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(layoutManager);
     }
 
@@ -73,37 +74,36 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sortPop:
-                sortByPopularity();
+                getMovies("popularity", key);
                 return true;
             case R.id.sortRated:
-                sortByBestRated();
+                getMovies("bestrated", key);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void sortByPopularity() {
-        // TODO Auto-generated method stub
-    }
 
-
-    private void sortByBestRated() {
+    private void getMovies(String type, String key) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<Model> call = apiService.getMoviesRating("7fc62a4d4f38231fa1b3a4cdf0e2a4c6");
+        Call<Model> call = null;
+        if (type == "bestrated"){
+            call = apiService.getMoviesRating(key);
+            getSupportActionBar().setTitle("Best Rated Movies");
+        } else if (type == "popularity") {
+            call = apiService.getMoviesPopularity(key);
+            getSupportActionBar().setTitle("Most Popular Movies");
+        }
+        
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
 
                 if(response.isSuccessful()) {
                     movieList.clear();
-                    recyclerAdapter.movieList.clear();
+                    movieList.addAll(response.body().getResults());
                     recyclerAdapter.notifyDataSetChanged();
-                    movieList = response.body().getResults();
-                    recyclerAdapter = new RecyclerAdapter(getApplicationContext(), movieList);
-                    recyclerAdapter.notifyDataSetChanged();
-
-                    recyclerView.setAdapter(recyclerAdapter);
                 } else {
                     System.out.println(response.errorBody());
                 }

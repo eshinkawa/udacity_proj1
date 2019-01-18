@@ -33,7 +33,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
-        notifyDataSetChanged();
     }
 
     @Override

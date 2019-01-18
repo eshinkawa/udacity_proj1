@@ -22,7 +22,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+        bindData();
+        getSupportActionBar().hide();
+    }
 
+    public void bindData() {
         Bundle data = getIntent().getExtras();
         Movie movie = data.getParcelable("movie");
 
@@ -41,6 +45,5 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         ImageView bgImage = findViewById(R.id.bgImage);
         Picasso.get().load("http://image.tmdb.org/t/p/w342/"+movie.getPosterPath()).into(bgImage);
-
     }
 }
