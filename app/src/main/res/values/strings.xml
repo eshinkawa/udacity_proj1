@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="filter_name">Popular Movies</string>
+    <string name="app_name">Famous Movies</string>
+    <string name="filter_name">Most Popular Movies</string>
     <string name="title_activity_movie_details">MovieDetails</string>
 </resources>

@@ -4,6 +4,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,15 +24,29 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         bindData();
-        getSupportActionBar().hide();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void setToolBarTitle(String movieTitle) {
+        getSupportActionBar().setTitle(movieTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void bindData() {
         Bundle data = getIntent().getExtras();
         Movie movie = data.getParcelable("movie");
 
-        TextView title = findViewById(R.id.title);
-        title.setText(movie.getOriginalTitle());
+        setToolBarTitle(movie.getOriginalTitle());
 
         TextView overview = findViewById(R.id.overview);
         overview.setText(movie.getOverview());
