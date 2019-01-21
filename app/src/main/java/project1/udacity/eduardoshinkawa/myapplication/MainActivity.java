@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     List<Movie> movieList;
     RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
-    String key = "7fc62a4d4f38231fa1b3a4cdf0e2a4c6";
+    String key = BuildConfig.API_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

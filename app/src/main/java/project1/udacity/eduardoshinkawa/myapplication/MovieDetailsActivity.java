@@ -1,8 +1,10 @@
 package project1.udacity.eduardoshinkawa.myapplication;
 
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,17 +15,36 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieDetailsActivity";
+    List<MovieTrailers.MovieVideos> movieTrailers;
+    RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
+    String key = BuildConfig.API_KEY;
+
+    Bundle data = getIntent().getExtras();
+    Movie movie = data.getParcelable("movie");
+
+    int id =  movie.getId();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MovieTrailersFragment frag = new MovieTrailersFragment();
+
+        frag.setArguments();
+
         setContentView(R.layout.activity_movie_details);
-        bindData();
+        bindData(movie);
     }
 
     @Override
@@ -42,10 +63,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void bindData() {
-        Bundle data = getIntent().getExtras();
-        Movie movie = data.getParcelable("movie");
-
+    public void bindData(Movie movie) {
         setToolBarTitle(movie.getOriginalTitle());
 
         TextView overview = findViewById(R.id.overview);
@@ -60,5 +78,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         ImageView bgImage = findViewById(R.id.bgImage);
         Picasso.get().load("http://image.tmdb.org/t/p/w342/"+movie.getPosterPath()).into(bgImage);
+    }
+
+    public void getRatings() {
+
     }
 }
