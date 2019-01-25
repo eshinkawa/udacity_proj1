@@ -10,29 +10,29 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailersAdapter.MyviewHolder>{
+public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.MyviewHolder>{
 
     Context context;
-    List<MovieTrailers.MovieVideos> movieVideos;
+    List<Trailers.MovieVideos> movieVideos;
 
-    public MovieTrailersAdapter(Context context, List<MovieTrailers.MovieVideos> movieVideos) {
+    public TrailersAdapter(Context context, List<Trailers.MovieVideos> movieVideos) {
         this.context = context;
         this.movieVideos = movieVideos;
     }
 
-    public void setMovieTrailersList(List<MovieTrailers.MovieVideos> movieVideos) {
+    public void setMovieTrailersList(List<Trailers.MovieVideos> movieVideos) {
         this.movieVideos = movieVideos;
     }
 
     @NonNull
     @Override
-    public MovieTrailersAdapter.MyviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public TrailersAdapter.MyviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_movie_trailers,parent,false);
-        return new MovieTrailersAdapter.MyviewHolder(view);
+        return new TrailersAdapter.MyviewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieTrailersAdapter.MyviewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull TrailersAdapter.MyviewHolder holder, final int position) {
         holder.title.setText(movieVideos.get(position).getKey());
     }
 

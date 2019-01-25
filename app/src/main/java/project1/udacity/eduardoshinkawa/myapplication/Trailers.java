@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieTrailers
+public class Trailers
 {
     @SerializedName("id")
     @Expose
@@ -21,7 +21,6 @@ public class MovieTrailers
     {
         return id;
     }
-
     public void setId (String id)
     {
         this.id = id;
@@ -31,7 +30,6 @@ public class MovieTrailers
     {
         return results;
     }
-
     public void setResults (List<MovieVideos> results)
     {
         this.results = results;
@@ -81,7 +79,6 @@ public class MovieTrailers
         {
             return site;
         }
-
         public void setSite (String site)
         {
             this.site = site;
@@ -91,7 +88,6 @@ public class MovieTrailers
         {
             return id;
         }
-
         public void setId (String id)
         {
             this.id = id;
@@ -101,7 +97,6 @@ public class MovieTrailers
         {
             return iso_639_1;
         }
-
         public void setIso_639_1 (String iso_639_1)
         {
             this.iso_639_1 = iso_639_1;
@@ -111,7 +106,6 @@ public class MovieTrailers
         {
             return name;
         }
-
         public void setName (String name)
         {
             this.name = name;
@@ -121,7 +115,6 @@ public class MovieTrailers
         {
             return type;
         }
-
         public void setType (String type)
         {
             this.type = type;
@@ -131,7 +124,6 @@ public class MovieTrailers
         {
             return key;
         }
-
         public void setKey (String key)
         {
             this.key = key;
@@ -141,7 +133,6 @@ public class MovieTrailers
         {
             return iso_3166_1;
         }
-
         public void setIso_3166_1 (String iso_3166_1)
         {
             this.iso_3166_1 = iso_3166_1;
@@ -151,7 +142,6 @@ public class MovieTrailers
         {
             return size;
         }
-
         public void setSize (String size)
         {
             this.size = size;

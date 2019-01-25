@@ -1,19 +1,12 @@
 package project1.udacity.eduardoshinkawa.myapplication;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<Movie> movieList;
     RecyclerView recyclerView;
-    RecyclerAdapter recyclerAdapter;
+    MoviesAdapter moviesAdapter;
     Boolean isConnected;
 
     @Override
@@ -71,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getMovies(String type) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<Model> call = null;
+        Call<MoviesModel> call = null;
         if (type == BEST_RATED){
             call = apiService.getMoviesRating();
             getSupportActionBar().setTitle("Best Rated Movies");
@@ -83,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
         isConnected = Utils.checkConnectivity(this);
 
         if(isConnected){
-            call.enqueue(new Callback<Model>() {
+            call.enqueue(new Callback<MoviesModel>() {
                 @Override
-                public void onResponse(Call<Model> call, Response<Model> response) {
+                public void onResponse(Call<MoviesModel> call, Response<MoviesModel> response) {
                     List<Movie> resultList = response.body().getResults();
                     if(response.isSuccessful()) {
                         if(movieList.isEmpty()){
@@ -101,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Model> call, Throwable t) {
+                public void onFailure(Call<MoviesModel> call, Throwable t) {
                     Log.d("TAG","Response = "+t);
 
                 }
@@ -109,28 +102,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
-            showToast("No internet connectivity");
+            Utils.showToast("No internet connectivity", this);
         }
-    }
-
-
-    public void showToast(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
     }
 
     public void updateList(List<Movie> list){
         movieList.clear();
         movieList.addAll(list);
-        recyclerAdapter.notifyDataSetChanged();
+        moviesAdapter.notifyDataSetChanged();
     }
 
 
     public void createList(List<Movie> list){
         movieList = list;
-        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), movieList);
-        recyclerView.setAdapter(recyclerAdapter);
+        moviesAdapter = new MoviesAdapter(getApplicationContext(), movieList);
+        recyclerView.setAdapter(moviesAdapter);
     }
 
 }
