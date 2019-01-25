@@ -110,15 +110,6 @@
             android:paddingTop="20dp"
             android:textSize="15dp" />
 
-
-        <fragment
-            android:name="com.example.android.FooFragment"
-            android:id="@+id/fooFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-
     </LinearLayout>
 
 </LinearLayout>

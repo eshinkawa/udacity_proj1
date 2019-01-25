@@ -28,6 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     public RecyclerAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
+        notifyDataSetChanged();
     }
 
     public void setMovieList(List<Movie> movieList) {
@@ -43,6 +44,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
     @Override
     public void onBindViewHolder(RecyclerAdapter.MyviewHolder holder, final int position) {
         holder.title.setText(movieList.get(position).getTitle());
+        Picasso.get().load("http://image.tmdb.org/t/p/w185/" + movieList.get(position).getPosterPath()).into(holder.poster_path);
+
+        holder.rating.setRating(movieList.get(position).getVoteAverage().floatValue() / 2);
+
+        holder.recyclerItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+
+                Movie mMovie = new Movie();
+
+                mMovie.setPosterPath(movieList.get(position).getPosterPath());
+                mMovie.setOverview(movieList.get(position).getOverview());
+                mMovie.setOriginalTitle(movieList.get(position).getOriginalTitle());
+                mMovie.setReleaseDate(movieList.get(position).getReleaseDate());
+                mMovie.setVoteAverage(movieList.get(position).getVoteAverage());
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("movie", mMovie);
+
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -52,6 +77,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
             return movieList.size();
         }
         return 0;
+
     }
 
     public class MyviewHolder extends RecyclerView.ViewHolder {
